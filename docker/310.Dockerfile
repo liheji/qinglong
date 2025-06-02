@@ -9,10 +9,10 @@ RUN set -x \
 
 FROM python:3.10-alpine
 
-ARG QL_MAINTAINER="whyour"
+ARG QL_MAINTAINER="liheji"
 LABEL maintainer="${QL_MAINTAINER}"
 ARG QL_URL=https://github.com/${QL_MAINTAINER}/qinglong.git
-ARG QL_BRANCH=develop
+ARG QL_BRANCH=build
 ARG PYTHON_SHORT_VERSION=3.10
 
 ENV QL_DIR=/ql \
@@ -22,7 +22,7 @@ ENV QL_DIR=/ql \
   PS1="\u@\h:\w \$ "
 
 VOLUME /ql/data
-  
+
 EXPOSE 5700
 
 COPY --from=builder /usr/local/lib/node_modules/. /usr/local/lib/node_modules/
@@ -51,8 +51,8 @@ RUN set -x \
   && apk update \
   && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
   && echo "Asia/Shanghai" > /etc/timezone \
-  && git config --global user.email "qinglong@users.noreply.github.com" \
-  && git config --global user.name "qinglong" \
+  && git config --global user.email "930617673@qq.com" \
+  && git config --global user.name "yilee" \
   && git config --global http.postBuffer 524288000 \
   && rm -rf /root/.cache \
   && ulimit -c 0
