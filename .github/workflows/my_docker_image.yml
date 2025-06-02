@@ -5,7 +5,7 @@ on:
     paths-ignore:
       - "*.md"
     branches:
-      - "master"
+      - "build"
       - "develop"
     tags:
       - "v*"
@@ -90,15 +90,15 @@ jobs:
             ${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}
             ghcr.io/${{ github.repository }}
           # generate Docker tags based on the following events/attributes
-          #   nightly, master, pr-2, 1.2.3, 1.2, 1
+          #   nightly, build, pr-2, 1.2.3, 1.2, 1
           flavor: |
             latest=false
           tags: |
             type=schedule,pattern=nightly
             type=edge
             type=ref,event=pr
-            type=ref,event=branch,enable=${{ github.ref != format('refs/heads/{0}', 'master') }}
-            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'master') }}
+            type=ref,event=branch,enable=${{ github.ref != format('refs/heads/{0}', 'build') }}
+            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'build') }}
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
@@ -133,7 +133,7 @@ jobs:
           echo ${{ steps.docker_build.outputs.digest }}
 
   build310:
-    if: ${{ github.ref_name == 'master' }}
+    if: ${{ github.ref_name == 'build' }}
     needs: build-static
 
     runs-on: ubuntu-22.04
