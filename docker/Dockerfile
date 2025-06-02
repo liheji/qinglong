@@ -58,6 +58,7 @@ RUN set -x \
   && ulimit -c 0
 
 ARG SOURCE_COMMIT
+RUN echo "QL_BRANCH=$QL_BRANCH, QL_URL=$QL_URL, QL_DIR=$QL_DIR, QL_MAINTAINER=$QL_MAINTAINER"
 RUN git clone --depth=1 -b ${QL_BRANCH} ${QL_URL} ${QL_DIR} \
   && cd ${QL_DIR} \
   && cp -f .env.example .env \
